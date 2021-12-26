@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- jquery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- mapbox -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <!-- Load the `mapbox-gl-geocoder` plugin. -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+</head>
+<body>
+    <div id='map' style='width: 1080px; height: 400px;'></div>
+
+    <form action="{% url 'book' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" id="currLoc" name="loc" value="">
+        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Book</button>
+    </form>
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoicG9waW4xMjMiLCJhIjoiY2t4bTM2aWZuMHdmYTJwb2Jiejl2YnFrMCJ9.BLEhqJB8ntc97sowVD6O5A';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [77.2114297229001,28.633891485554614], // starting position
+        zoom: 14 // starting zoom
+    });
+
+    map.addControl(
+        new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+        })
+    );
+
+    map.addControl(new mapboxgl.NavigationControl());
+
+    // var marker = new mapboxgl.Marker();
+    // function add_marker (event) {
+    //     console.log(event);
+    //     var coordinates = event.lngLat;
+    //     console.log('Lng:', coordinates.lng, 'Lat:', coordinates.lat);
+    //     marker.setLngLat(coordinates).addTo(map);
+    // }
+
+    // map.on('click', add_marker);
+
+    $("input[Placeholder=Search]").change((e)=>{
+        $("#currLoc").attr("value",e.target.value)
+    })
+</script>
+
+</body>
+</html>
