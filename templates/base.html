@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Santa</title>
+    <!-- tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    {% block head %}
+
+    {% endblock %}
+</head>
+<body background="{% static 'img/snow.jpg' %}">
+
+    <header class="body-font bg-black">
+        <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+          <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0" href="{% url 'map' %}">
+            <span class="ml-3 text-xl text-white">Happy Christmas</span>
+          </a>
+        </div>
+      </header>
+      {% block body %}
+      {% endblock %}
+    
+</body>
+</html>

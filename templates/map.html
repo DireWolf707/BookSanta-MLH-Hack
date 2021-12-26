@@ -1,10 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'base.html' %}
+{% block head %}
     <!-- jquery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- mapbox -->
@@ -13,18 +8,35 @@
     <!-- Load the `mapbox-gl-geocoder` plugin. -->
     <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
     <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css">
-    <!-- tailwind -->
-    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock %}
     
-</head>
-<body>
-    <div id='map' style='width: 1080px; height: 400px;'></div>
+{% block body %}
+
+<section class="text-gray-600 body-font">
+    <div class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center ">
+      <div class=" lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0 ">
+        <img class="object-cover object-center rounded-2xl" alt="hero" src="https://2.bp.blogspot.com/-6g6DD9LuPxw/W-4-Xi1vDHI/AAAAAAAAC84/IdME2P7h2Por7bVFpFq6TV49mmlsp3qbACLcBGAs/s1600/christmas-santa-claus-cartoon-image-%2B2880x1800.jpg">
+      </div>
+      <div class="lg:flex-grow md:w-1/2 flex flex-col md:items-start md:text-left items-center text-center bg-gray-100 py-12 px-6 ml-2 rounded-lg">
+        <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Book Your Santa Today!</h1>
+        <p class="mb-8 leading-relaxed text-lg">Maybe Santa isn't real or maybe he is stuck in lockdown or maybe he already have his hand full of children.<br>
+          But dont worry! we got a santa for each and every child.<br>
+          Just scroll down and schedule one right now!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="mx-6">
+    <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-black bg-gray-200 text-center py-2 mx-24 rounded-full">Select Your Location</h1>
+    <div id='map' style='width: 1470px; height: 400px;'></div>
 
     <form action="{% url 'book' %}" method="post">
         {% csrf_token %}
         <input type="hidden" id="currLoc" name="loc" value="">
-        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Book</button>
+        <button type="submit" class="my-4 flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Schedule</button>
     </form>
+  </div>
 
 <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoicG9waW4xMjMiLCJhIjoiY2t4bTM2aWZuMHdmYTJwb2Jiejl2YnFrMCJ9.BLEhqJB8ntc97sowVD6O5A';
@@ -58,6 +70,4 @@
         $("#currLoc").attr("value",e.target.value)
     })
 </script>
-
-</body>
-</html>
+{% endblock %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views import View
+from datetime import datetime
 
 class BookView(View):
     def post(self,request):
@@ -8,9 +9,9 @@ class BookView(View):
 
 class ConfirmView(View):
     def get(self,request):
-        print(request.GET)
-        # event_type_name
-        # event_start_time - event_end_time
-        # invitee_full_name
-        # invitee_email
-        return render(request,'confirm.html')
+        date = datetime.fromisoformat(request.GET.get("event_start_time"))
+        context = dict()
+        context['type']=request.GET.get("event_type_name")
+        context['date']=date
+        context['name']=request.GET.get("invitee_full_name")
+        return render(request,'confirm.html',context=context)
